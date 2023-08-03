@@ -1,10 +1,15 @@
 'use strict';
 
-'use strict';
-
 
 let string = '';
 let buttons = document.querySelectorAll("button");
+
+document.addEventListener('keydown', (event) => {
+    const allowedKeys = /^[0-9()]*$/; 
+    if (!allowedKeys.test(event.key) ) {
+        event.preventDefault();
+    }
+});
 
 const calculate =()=> {
     try {
@@ -25,7 +30,11 @@ buttons.forEach((button) => {
         } else if (btn.target.innerHTML === "C") {
             string = '';
             display.value = '';
-        } else {
+        } else if (btn.target.innerHTML === "back") {
+            string = string.slice(0, -1); 
+            display.value = string;
+        } 
+        else {
             string = string + btn.target.innerHTML;
             display.value = string;
         }
