@@ -1,20 +1,33 @@
 'use strict';
 
+'use strict';
+
 
 let string = '';
 let buttons = document.querySelectorAll("button");
-// const erase =document.querySelector(".backspace").value =string.length -1;
 
-const arr = Array.from(buttons).forEach((button) => {
-    button.addEventListener('click', (e) => {
+const calculate =()=> {
+    try {
+        const result = eval(string);
+        return result;
+    } catch (error) {
+        return 'Error';
+    }
+}
 
-        if (e.target.innerHTML == "=") {
-            string = eval(string);
-            document.querySelector(".calculations").value = string
+buttons.forEach((button) => {
+    button.addEventListener('click', (btn) => {
+        const display = document.querySelector(".calculations");
+
+        if (btn.target.innerHTML === "=") {
+            string = calculate();
+            display.value = string;
+        } else if (btn.target.innerHTML === "C") {
+            string = '';
+            display.value = '';
         } else {
-            console.log(e.target.innerHTML)
-            string = string + e.target.innerHTML;
-            document.querySelector(".calculations").value = string
+            string = string + btn.target.innerHTML;
+            display.value = string;
         }
-    })
-})
+    });
+});
